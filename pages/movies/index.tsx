@@ -10,6 +10,9 @@ const Movies: NextPage = () => {
   if (error) {
     return (
       <>
+        <header>
+          <h2 className="display-3">Movies</h2>
+        </header>
         <p>Error loading data</p>
         <pre>{error.message}</pre>
       </>)
@@ -18,7 +21,9 @@ const Movies: NextPage = () => {
   if (!isLoaded || !movies) {
     return (
       <Fragment>
-        <h2>Movies</h2>
+        <header>
+          <h2 className="display-3">Movies</h2>
+        </header>
         <div>
           Loading...
         </div>
@@ -28,7 +33,9 @@ const Movies: NextPage = () => {
 
   return (
     <Fragment>
-      <h2>Movies</h2>
+      <header>
+        <h2 className="display-3">Movies</h2>
+      </header>
       <div>
         <ul>
           {movies.map((item: Movie, i: number) => (
