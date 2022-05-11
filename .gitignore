@@ -33,3 +33,10 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# ide
+.idea
+.vscode
+
+# os
+.DS_Store
