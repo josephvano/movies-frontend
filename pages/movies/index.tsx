@@ -1,4 +1,5 @@
 import {NextPage} from "next";
+import Link       from "next/link";
 import {Fragment} from "react";
 import {useApi}   from "../../lib/api";
 import {Movie}    from "../../types";
@@ -30,7 +31,13 @@ const Movies: NextPage = () => {
       <h2>Movies</h2>
       <div>
         <ul>
-          {movies.map((item: Movie, i: number) => <li key={i}>{item.title}</li>)}
+          {movies.map((item: Movie, i: number) => (
+            <li key={i}>
+              <Link href={`/movies/${encodeURIComponent(item.id)}`}>
+                <a>{item.title}</a>
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </Fragment>

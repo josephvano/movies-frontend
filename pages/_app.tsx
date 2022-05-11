@@ -1,9 +1,15 @@
+import "bootstrap/dist/css/bootstrap.min.css"
 import '../styles/globals.css'
 import type {AppProps} from 'next/app'
 import Link            from "next/link";
+import {useEffect}     from "react";
 import styles          from './app.module.sass';
 
 function MyApp({Component, pageProps}: AppProps) {
+  useEffect( () => {
+    typeof document !== undefined ? require("bootstrap/dist/js/bootstrap.min") : null;
+  }, []);
+
   return (
     <div className={styles.wrapper}>
       <header className={styles.header}>

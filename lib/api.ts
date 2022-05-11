@@ -24,9 +24,15 @@ function useApi<T>(path: string): UseApi<T> {
   useEffect(() => {
 
     const makeRequest = async () => {
+      if(!path){
+        return;
+      }
+
       const response = await fetch(`${BASE}/${VERSION}/${path}`);
 
       setLoaded(true);
+      setError(null);
+      setData(null);
 
       const status = response.status;
 
