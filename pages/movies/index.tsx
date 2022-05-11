@@ -31,6 +31,7 @@ const Movies: NextPage = () => {
   const url                     = apiUrl('movies');
   const [isLoaded, setIsLoaded] = useState(false);
   const [movies, setMovies]     = useState<Movie[]>([]);
+  const [error, setError]       = useState<Error | null>(null);
 
   useEffect(() => {
     if (isLoaded) {
@@ -38,19 +39,35 @@ const Movies: NextPage = () => {
     }
 
     const makeRequest = async () => {
-      fetch(url)
-        .then(async response => {
-          const data: Data = await response.json() as Data;
-          setIsLoaded(true)
+      const response = await fetch(url);
 
-          console.log(data);
+      setIsLoaded(true)
 
-          setMovies(data.movies)
-        })
+      const status = response.status;
+
+      if(200 !== status){
+        setError(new Error(`${status}: ${response.statusText}`))
+        return;
+      }
+
+      const data: Data = await response.json() as Data;
+
+      //TODO: remove or proper log
+      console.log(data);
+
+      setMovies(data.movies)
     }
 
     makeRequest();
   }, [url, isLoaded]);
+
+  if (error) {
+    return (
+      <>
+        <p>Error loading data</p>
+        <pre>{error.message}</pre>
+      </>)
+  }
 
   if (!isLoaded) {
     return (
