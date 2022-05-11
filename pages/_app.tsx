@@ -8,7 +8,7 @@ function MyApp({Component, pageProps}: AppProps) {
     <div className={styles.wrapper}>
       <header className={styles.header}>
         <div className={styles.container}>
-          <h1 className={styles.title}>Movies by GO</h1>
+          <h1 className={styles.title}>Movies on the GO</h1>
         </div>
       </header>
       <nav className={`${styles.container} ${styles.nav}`}>
