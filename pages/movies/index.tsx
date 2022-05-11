@@ -1,65 +1,10 @@
 import {NextPage} from "next";
-import {
-  Fragment,
-  useEffect,
-  useState
-}                 from "react";
-
-const BASE = `http://localhost:4000`
-
-const apiUrl = (path: string): string => {
-  return `${BASE}/v1/${path}`
-}
-
-type Movie = {
-  id: number,
-  title: string,
-  description: string,
-  genres: string[],
-  mpaa_rating: string,
-  runtime: number,
-  rating: number,
-  year: number,
-  release_date: string,
-}
-
-type Data = {
-  movies: Movie[]
-}
+import {Fragment} from "react";
+import {useApi}   from "../../lib/api";
+import {Movie}    from "../../types";
 
 const Movies: NextPage = () => {
-  const url                     = apiUrl('movies');
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [movies, setMovies]     = useState<Movie[]>([]);
-  const [error, setError]       = useState<Error | null>(null);
-
-  useEffect(() => {
-    if (isLoaded) {
-      return;
-    }
-
-    const makeRequest = async () => {
-      const response = await fetch(url);
-
-      setIsLoaded(true)
-
-      const status = response.status;
-
-      if(200 !== status){
-        setError(new Error(`${status}: ${response.statusText}`))
-        return;
-      }
-
-      const data: Data = await response.json() as Data;
-
-      //TODO: remove or proper log
-      console.log(data);
-
-      setMovies(data.movies)
-    }
-
-    makeRequest();
-  }, [url, isLoaded]);
+  const {isLoaded, error, data: movies} = useApi<Movie[]>('movies')
 
   if (error) {
     return (
@@ -69,7 +14,7 @@ const Movies: NextPage = () => {
       </>)
   }
 
-  if (!isLoaded) {
+  if (!isLoaded || !movies) {
     return (
       <Fragment>
         <h2>Movies</h2>
