@@ -1,12 +1,12 @@
 import {NextPage} from "next";
 import { Fragment } from "react";
 
-const Categories: NextPage = () => {
+const Genres: NextPage = () => {
   return (
     <Fragment>
-      <h2>Categories</h2>
+      <h2>Genres</h2>
     </Fragment>
   )
 }
 
-export default Categories;
+export default Genres;
